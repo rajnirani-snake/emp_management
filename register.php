@@ -1,12 +1,13 @@
-    <?php 
+   <?php
     include 'conn.php';
     if(isset($_POST['register'])){
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = md5($_POST['password']);
+
                 $q = " INSERT INTO user(username, email, password) VALUES ( '$username', '$email', '$password')";
                 $query = mysqli_query($con,$q);
-                header("Location: login.php");
+                header("Location: index.php");
             }
         ?>
         <!DOCTYPE html>

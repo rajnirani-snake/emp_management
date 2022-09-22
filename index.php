@@ -1,10 +1,22 @@
-            <?php 
-                if(count($_POST)>0) {
-                    $con = mysqli_connect('localhost','root','','admin') or die('Unable To connect');
+<?php 
+session_start();
+if(isset($_SESSION['id'])) {
+    header("Location: /core_admin/admin/dashboard/dashboard.php");
+}
+    include 'conn.php';
+        if(isset($_POST['login'])) {
                     $result = mysqli_query($con,"SELECT * FROM user WHERE username='" . $_POST["username"]. "' and password = '". md5($_POST["password"])."'");
-                    $row  = mysqli_fetch_array($result);
+                    $rowcount=mysqli_num_rows($result);
+                    if($rowcount >  0) {
+                    $row = mysqli_fetch_row($result);
+                    $_SESSION["username"] =  $row[1];
+                    $_SESSION['id']       = $row[0];
                     header("Location: /core_admin/admin/dashboard/dashboard.php");
                     }
+                    else {
+                        header("Location: http://localhost/core_admin/");
+                    }
+                }
             ?>
 
         <!DOCTYPE html>
@@ -56,7 +68,7 @@
                             <a href="#" class="forgot-pass">Forgot password</a>
                         </div> -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-block enter-btn" name="done">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block enter-btn" name="login">Login</button>
                         </div>
                         <!-- <div class="d-flex">
                             <button class="btn btn-facebook mr-2 col">
