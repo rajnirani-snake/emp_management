@@ -1,13 +1,27 @@
 <?php 
- include '../../conn.php';
-?>
-<?php 
 session_start();
 $user = $_SESSION['username'];
 if(!isset($_SESSION['id'])){
-  header("Location: http://localhost/core_admin/");
+    header("Location:/core_admin/admin/department/add_new_department.php");
 }
 ?>
+<?php
+  include '../../conn.php';
+  if(isset($_POST['update'])){
+  $id = $_GET['id'];
+  $name = $_POST['name'];
+  $q = "update department set name='$name' where id=$id ";
+  $query = mysqli_query($con,$q);
+
+  header('location:/core_admin/admin/department/department_list.php');
+  }
+  ?>
+   <?php
+  $postid = intval($_GET['id']);
+  $result = mysqli_query($con,"SELECT * FROM department where id=$postid");
+  $row = $result->fetch_assoc();
+  $name = $row["name"];
+    ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,12 +47,12 @@ if(!isset($_SESSION['id'])){
     <link rel="shortcut icon" href="../../assets/images/favicon.png" />
   </head>
   <body>
-  <div class="container-scroller">
+    <div class="container-scroller">
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="../department/department_list.php"><img src="../../assets/images/logo.svg" alt="logo" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="../department/department_list.php"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="../department/add_new_department.php"><img src="../../assets/images/logo.svg" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="../department/add_new_department.php"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
         </div>
         <ul class="nav">
           <li class="nav-item profile">
@@ -50,7 +64,7 @@ if(!isset($_SESSION['id'])){
                 </div>
                 <div class="profile-name">
                   <h5 class="mb-0 font-weight-normal"><?php echo $user; ?></h5>
-              
+                 
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -94,7 +108,7 @@ if(!isset($_SESSION['id'])){
             <span class="nav-link">Navigation</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="../dashboard/dashboard.php">
+            <a class="nav-link" href="../department/add_new_department.php">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
@@ -126,78 +140,18 @@ if(!isset($_SESSION['id'])){
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../designation/designation_list.php">list </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../designation/add_new_designation.php">list </a></li>
                 <li class="nav-item"> <a class="nav-link" href="../designation/add_new_designation.php">add new</a></li>
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="../department/add new.php">
-              <!-- <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
-              </span>
-              <span class="menu-title">Form Elements</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="../department/department_list.php">
-              <span class="menu-icon">
-                <i class="mdi mdi-table-large"></i>
-              </span> -->
-              <!-- <span class="menu-title">Tables</span> -->
-            <!-- </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="../../pages/charts/chartjs.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-chart-bar"></i>
-              </span>
-              <span class="menu-title">Charts</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-              <span class="menu-title">Icons</span>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
-              </span>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i> -->
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-              <!-- <span class="menu-icon"> -->
-                <!-- <i class="mdi mdi-file-document-box"></i>
-              </span>
-              <span class="menu-title">Documentation</span> -->
-            </a>
-          </li>
-        </ul>
-      </nav> 
-
-      <!-- partial -->
+          </ul>
+      </nav>
       <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="../department/department_list.php"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="../department/add_new_department.php"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -385,57 +339,25 @@ if(!isset($_SESSION['id'])){
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
               <span class="mdi mdi-format-line-spacing"></span>
             </button>
-            </div>
-           </nav>
-           <div class="row ">
-              <div class="col-12 grid-margin">
+          </div>
+        </nav>
+          <div class="row">
+              <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Order Status</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th> Id </th>
-                            <th>Department Name </th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php 
-                          $result = mysqli_query($con,"SELECT * FROM department" );
-                  if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {?>
-                   
-                           <tr>
-                            <td><?php echo $row['id'];?></td>
-                            <td><?php echo $row['name'];?></td>
-                           
-                    <?php echo  '<td>
-                            <div class="badge badge-outline-success"><a href="../department/update.php?id='. $row["id"] .'">Edit</a></div>
-                            </td>
-                            <td>
-                             <div class="badge badge-outline-danger"> <a href="../department/delete.php?id='. $row["id"] .'">Delete</a></div>
-                            </td> '?>
-                          </tr> 
-             <?php  } } else {
-
-                  echo "no Department found";
-
-              } ?>
-              
-            
-                        </tbody>
-                      </table>
-                    </div>
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" action="" method="post">
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Depart_name</label>
+                        <input type="text" class="form-control" name="name" value="<?php echo $name; ?>">
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2" name="update">Submit</button> 
+                      
+                    </form>
                   </div>
                 </div>
               </div>
-            </div>
-
-           <?php 
-           include '../include/footer.php';
-           ?>
- 
+              <?php
+              include '../include/footer.php';
+              ?>

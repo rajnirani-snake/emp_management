@@ -1,5 +1,6 @@
 <?php
 session_start();
+$user = $_SESSION['username'];
 if(!isset($_SESSION['id'])) {
     header("Location: http://localhost/core_admin/");
 }

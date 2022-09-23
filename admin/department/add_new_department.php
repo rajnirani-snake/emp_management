@@ -1,4 +1,20 @@
+<?php 
+session_start();
+$user = $_SESSION['username'];
+if(!isset($_SESSION['id'])){
+  header("Location: http://localhost/core_admin/");
+}
+?>
+<?php
+ include '../../conn.php';
 
+if(isset($_POST['depart'])){
+    $name = $_POST['name'];
+    $q = " INSERT INTO department(name) VALUES ( '$name')";
+            $query = mysqli_query($con,$q);
+             header("Location: /core_admin/admin/department/add_new_department.php");
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,8 +56,8 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                  <span>Gold Member</span>
+                  <h5 class="mb-0 font-weight-normal"><?php echo $user; ?></h5>
+                  
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -122,45 +138,45 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <!-- <li class="nav-item menu-items">
             <a class="nav-link" href="../department/add_new_department.php">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
-              </span>
-              <span class="menu-title">Form Elements</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
+              </span> -->
+              <!-- <span class="menu-title">Form Elements</span> -->
+            <!-- </a>
+          </li> -->
+          <!-- <li class="nav-item menu-items">
             <a class="nav-link" href="../department/department_list.php">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
-              </span>
-              <span class="menu-title">Tables</span>
-            </a>
+              </span> -->
+              <!-- <span class="menu-title">Tables</span> -->
+            <!-- </a>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="../../pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
-              </span>
-              <span class="menu-title">Charts</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
+              </span> -->
+              <!-- <span class="menu-title">Charts</span> -->
+            <!-- </a>
+          </li> -->
+          <!-- <li class="nav-item menu-items">
             <a class="nav-link" href="../../pages/icons/mdi.html">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
-              <span class="menu-title">Icons</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
+            - <span class="menu-title">Icons</span> -->
+            <!-- </a>
+          </li> -->
+          <!-- <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
-              </span>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
+                <i class="mdi mdi-security"></i> -->
+              <!-- </span> -->
+              <!-- <span class="menu-title">User Pages</span> -->
+              <!-- <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
@@ -172,14 +188,14 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-              <span class="menu-icon">
+          <li class="nav-item menu-items"> -->
+            <!-- <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html"> -->
+              <!-- <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
               <span class="menu-title">Documentation</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
 
@@ -200,7 +216,7 @@
                   <input type="text" class="form-control" placeholder="Search products">
                 </form>
               </li>
-            </ul>
+            </ul> 
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create New Project</a>
@@ -340,7 +356,7 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="../../assets/images/faces/face15.jpg" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $user; ?></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -384,29 +400,13 @@
                   <div class="card-body">
                     <h4 class="card-title">Default form</h4>
                     <p class="card-description"> Basic form layout </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" action="" method="post">
                       <div class="form-group">
-                        <label for="exampleInputUsername1">Username</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                        <label for="exampleInputUsername1">Depart_name</label>
+                        <input type="text" class="form-control" name="name" value="">
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
-                      </div>
-                      <div class="form-check form-check-flat form-check-primary">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input"> Remember me </label>
-                      </div>
-                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                      <button class="btn btn-dark">Cancel</button>
+                      <button type="submit" class="btn btn-primary mr-2" name="depart">Submit</button> 
+                      
                     </form>
                   </div>
                 </div>
