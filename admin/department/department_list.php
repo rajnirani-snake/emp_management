@@ -30,7 +30,7 @@ include '../include/header.php';
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Order Status</h4>
+                    <h4 class="card-title">Department Table</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
@@ -39,7 +39,6 @@ include '../include/header.php';
                             <th>Department Name </th>
                             <th>Edit</th>
                             <th>Delete</th>
-                            
                           </tr>
                         </thead>
                         <tbody>

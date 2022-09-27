@@ -109,7 +109,7 @@ include '../include/header.php';
         </div>
       </div>
             <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+            <!-- partial:partials/_footer.html -->
                           </textarea>
                           </div>
                           <!-- Tabs Ends -->

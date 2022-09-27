@@ -8,12 +8,22 @@ if(!isset($_SESSION['id'])){
 
 <?php 
 include '../../conn.php';
+
 if(isset($_POST['desig'])){
-  $department_id = $_POST['department_id'];
+  $res = $_POST['designation'];
+  echo $res;die;
+  //$department_id = $_POST['department_id'];
   
-  $q = " INSERT INTO designation(department_id) VALUES ('$department_id')";
+   $result_explode = ( $res);
+  // print_r($result_explode );die;
+  $designation = $result[0];
+  //echo $designation;die;
+  $department_id = $result[1];
+  //echo $department_id;die;
+  
+  $q = " INSERT INTO `designation`(`department_id`, `name`) VALUES ('$department_id' , '$designation')";
           $query = mysqli_query($con,$q);
-           header("Location: /core_admin/admin/designation/add_new_designation.php?id=$department_id");
+           header("Location: /core_admin/admin/designation/add_new_designation.php");
       }
 ?>
       <?php
@@ -31,23 +41,6 @@ if(isset($_POST['desig'])){
         <?php 
         include '../include/navbar.php';
         ?>
-
-<?php
-    //       $id = $_GET['id'];
-    //       $result = mysqli_query($con,"SELECT * FROM designation WHERE department_id = $id");
-    //         if ($result->num_rows > 0) {
-    //           while($row = $result->fetch_assoc()) {
-    //             echo '<div>
-    //                   <div class="container">
-
-    //                   </div>
-    //                  </div>';
-                     
-    //           }
-    // } else {
-    //   echo "0 results";
-    // }
-    ?> 
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
@@ -57,22 +50,21 @@ if(isset($_POST['desig'])){
                     <h4 class="card-title"><center>Add Designation</center></h4>
                         <div class="table-responsive">
                         <h4 class="card-title">Department Name</h4>
-                         <form class="forms-sample" action="" method="post">
-                         <!-- <input type="hidden" value='<?php echo $id;?>' name="department_id"> -->
+                        <form class="forms-sample" action="" method="post">
                           <div class="form-group">
-                          <!-- <label for="exampleInputUsername1">Department Name</label>
-                          <input type="text" class="form-control" name="name" value=""> -->
-                              <select id="department" class="form-control" name="">
-                                <option value="" selected="selected">Select Department Name</option>
+                              <select id="department" class="form-control" name="designation">
+                                <option value="">Select Department Name</option>
                                 <?php 
                                 include_once("../../conn.php");
                                 $sql = "SELECT * FROM department";
                                 $result = mysqli_query($con, $sql);
                                 while($rows = mysqli_fetch_assoc($result)){
                                 ?>
-                                <option value="<?php echo $rows["name"]; ?>"> <?php echo $rows["name"];?></option>
+                                <option value="<?php echo $rows["id"];?>"> <?php echo $rows["name"];?></option>
                                 <?php } ?>
-                              </select> <br>
+                                </select> <br>
+                               <label for="exampleInputUsername1">Designation Name</label>
+                               <input type="text" class="form-control" name="" value=""><br> 
                               <button type="submit" class="btn btn-primary mr-2" name="desig">Submit</button> 
                             </form>
                           </div>
