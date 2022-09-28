@@ -11,6 +11,9 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+
+
+      </script>
     <!-- container-scroller -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
@@ -30,6 +33,7 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="../../assets/js/dashboard.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>

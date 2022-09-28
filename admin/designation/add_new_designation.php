@@ -10,18 +10,10 @@ if(!isset($_SESSION['id'])){
 include '../../conn.php';
 
 if(isset($_POST['desig'])){
-  $res = $_POST['designation'];
-  echo $res;die;
-  //$department_id = $_POST['department_id'];
+  $name = $_POST['designation'];
+  $department_id = $_POST['department'];
   
-   $result_explode = ( $res);
-  // print_r($result_explode );die;
-  $designation = $result[0];
-  //echo $designation;die;
-  $department_id = $result[1];
-  //echo $department_id;die;
-  
-  $q = " INSERT INTO `designation`(`department_id`, `name`) VALUES ('$department_id' , '$designation')";
+  $q = " INSERT INTO `designation`(`department_id`, `name`) VALUES ('$department_id', '$name')";
           $query = mysqli_query($con,$q);
            header("Location: /core_admin/admin/designation/add_new_designation.php");
       }
@@ -52,7 +44,7 @@ if(isset($_POST['desig'])){
                         <h4 class="card-title">Department Name</h4>
                         <form class="forms-sample" action="" method="post">
                           <div class="form-group">
-                              <select id="department" class="form-control" name="designation">
+                              <select id="department" class="form-control" name="department">
                                 <option value="">Select Department Name</option>
                                 <?php 
                                 include_once("../../conn.php");
@@ -62,9 +54,9 @@ if(isset($_POST['desig'])){
                                 ?>
                                 <option value="<?php echo $rows["id"];?>"> <?php echo $rows["name"];?></option>
                                 <?php } ?>
-                                </select> <br>
+                              </select> <br>
                                <label for="exampleInputUsername1">Designation Name</label>
-                               <input type="text" class="form-control" name="" value=""><br> 
+                               <input type="text" class="form-control" name="designation" value=""><br> 
                               <button type="submit" class="btn btn-primary mr-2" name="desig">Submit</button> 
                             </form>
                           </div>
@@ -83,6 +75,8 @@ if(isset($_POST['desig'])){
                     </div>
                   </div>
                 </div>
+
+    
                 
 <?php 
 include '../include/footer.php';
