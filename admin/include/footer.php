@@ -11,9 +11,38 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+               <script>
+                
+        $(document).ready(function(){
+        $('#department').change(function(){
+            let departmentId = $(this).val();
+            var options = '';
+            $("#designation").html(options);
+            $.ajax({
+            url:"getDesignation.php",    //the page containing php script
+            type: "post",    //request type,
+            dataType: 'json',
+            data: {departmentId: departmentId},
+            success:function(result){
+                console.log(result);
+                var len = result.length;
+                for(i = 0;i < len;i++){
+                    var name = result[i].name;
+                    var id = result[i].id;
+                   options = 
+                    "<option value=" + id  + ">"+name+"</option>";
+                    $("#designation").append(options);
+                }
+            }
+        });
+            
+    });
+});
+    </script>
 
 
-      </script>
+      
     <!-- container-scroller -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->

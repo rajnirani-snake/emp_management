@@ -47,7 +47,7 @@ if(!isset($_SESSION['id'])){
                     <p class="card-description"> Basic form layout </p>
                       <form class="forms-sample" action="" method="post">
                       <div class="form-group">
-                        <label for="exampleInputUsername1">Depart_name</label>
+                        <label for="exampleInputUsername1">Depart Name</label>
                         <input type="text" class="form-control" name="name" value="<?php echo $name; ?>">
                       </div>
                       <button type="submit" class="btn btn-primary mr-2" name="update">Submit</button> 

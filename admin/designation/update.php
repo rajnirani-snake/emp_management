@@ -1,21 +1,34 @@
-<?php 
+<?php
+include '../../conn.php';
 session_start();
 $user = $_SESSION['username'];
 if(!isset($_SESSION['id'])){
   header("Location: http://localhost/core_admin/");
 }
-?>
 
-<?php 
-include '../../conn.php';
+if(isset($_POST['update'])){
+    $id = $_GET['id'];
+    $name = $_POST['designation'];
+    $updatequery = "update designation set name='$name' where id=$id ";
+    $query = mysqli_query($con,$updatequery);
+    //echo $query;die;
 
-if(isset($_POST['desig'])){
-  $name = $_POST['designation'];
-  $department_id = $_POST['department'];
+  header('location:/core_admin/admin/designation/designation_list.php');
+  }
   
-  $desigInsertQuery = " INSERT INTO `designation`(`department_id`, `name`) VALUES ('$department_id', '$name')";
+  $postid = intval($_GET['id']);
+  $result = mysqli_query($con,"SELECT * FROM designation where id=$postid");
+  $row = $result->fetch_assoc();
+  $name = $row["name"];
+  $dep   = $row['department_id'];
+
+    if(isset($_POST['desig'])){
+    $name = $_POST['designation'];
+    $department_id = $_POST['department'];
+  
+    $desigInsertQuery = " INSERT INTO `designation`(`department_id`, `name`) VALUES ('$department_id', '$name')";
           $query = mysqli_query($con,$desigInsertQuery);
-           header("Location: /core_admin/admin/designation/add_new_designation.php");
+          header("Location: /core_admin/admin/designation/add_new_designation.php");
       }
 ?>
       <?php
@@ -44,21 +57,20 @@ if(isset($_POST['desig'])){
                         <h4 class="card-title">Department Name</h4>
                         <form class="forms-sample" action="" method="post">
                           <div class="form-group">
-                              <select id="department" class="form-control" name="department">
+                            <select id="department" class="form-control" name="department">
                                 <option value="">Select Department Name</option>
                                 <?php 
                                 include_once("../../conn.php");
                                 $sql = "SELECT * FROM department";
                                 $result = mysqli_query($con, $sql);
                                 while($rows = mysqli_fetch_assoc($result)){
-                                ?>
-                                <option value="<?php echo $rows["id"];?>"> <?php echo $rows["name"];?></option>
+                                    ?>
+                                <option <?php echo ($dep == $rows["id"])?"selected":"" ?> value="<?php echo $rows["id"];?>"> <?php echo $rows["name"];?></option>
                                 <?php } ?>
-                              </select> <br>
-            
+                            </select> <br>
                                <label for="exampleInputUsername1">Designation Name</label>
-                               <input type="text" class="form-control" name="designation" value=""><br> 
-                              <button type="submit" class="btn btn-primary mr-2" name="desig">Submit</button> 
+                               <input type="text" class="form-control" name="designation" value="<?php echo $name; ?>"><br> 
+                              <button type="submit" class="btn btn-primary mr-2" name="update">Submit</button> 
                             </form>
                           </div>
                         </div>
@@ -76,9 +88,10 @@ if(isset($_POST['desig'])){
                     </div>
                   </div>
                 </div>
+    
 
+    
                 
 <?php 
 include '../include/footer.php';
 ?>
-
